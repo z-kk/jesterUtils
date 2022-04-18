@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.2.0"
 author        = "z-kk"
 description   = "Utils for Jester"
 license       = "MIT"
@@ -9,4 +9,4 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 0.19.4"
+requires "nim >= 1.2.0"
