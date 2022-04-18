@@ -1,5 +1,6 @@
 import
-  json, tables, strutils
+  json, tables, strutils,
+  jester
 
 proc parseNode(params: Table[string, string], keyword: string): JsonNode =
   result = %*{}
@@ -16,8 +17,8 @@ proc parseNode(params: Table[string, string], keyword: string): JsonNode =
         continue
       result[k[k.rfind('[')+1..^2]] = params.parseNode(k)
 
-# Jesterのrequest.paramsをJsonに変換
 proc parseJson*(params: Table[string, string]): JsonNode =
+  ## Jesterのrequest.paramsをJsonに変換
   result = %*{}
   for key, val in params:
     var s = key.find('[')
@@ -30,3 +31,10 @@ proc parseJson*(params: Table[string, string]): JsonNode =
       if result.hasKey(k):
         continue
       result[k] = params.parseNode(k)
+
+proc getFormData*(request: Request, name: string): string =
+  ## FormDataから値を取得
+  if name in request.formData:
+    return request.formData[name].body
+  else:
+    return ""
